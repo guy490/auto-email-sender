@@ -17,7 +17,7 @@ exports.getDetailsObject = (filePath) => {
     const cleanLine = line.replace(/[ ]+/, "");
     const key = cleanLine.substr(0, line.indexOf(":"));
     const data = cleanLine.substr(line.indexOf(": ") + 1);
-    details[key] = data;
+    details[key.replace(/[^\w]/, "")] = data;
   });
   return details;
 };
@@ -29,7 +29,7 @@ const createFileList = (pathsString) => {
   let fileList = [];
   const cleanPaths = pathsString.replace(" ", "");
   const pathList = cleanPaths.split(",");
-  pathList.forEach(async (path) => {
+  pathList.forEach((path) => {
     const filenames = fs.readdirSync(path);
     filenames.forEach((file) => {
       fileList.push({ path: `${path}\\${file}` });
@@ -38,14 +38,21 @@ const createFileList = (pathsString) => {
   return fileList;
 };
 
+/**
+ * @param { string } emailAddress
+ * @returns {string }
+ */
 const getEmailService = (emailAddress) => {
-  return emailAddress.indexOf("@") + 1, emailAddress.indexOf(".");
+  return emailAddress.slice(
+    emailAddress.indexOf("@") + 1,
+    emailAddress.indexOf(".")
+  );
 };
 
 /**
  * @param { Object } detailsObject
  */
-exports.sendEmail = async (detailsObject) => {
+exports.sendEmail = (detailsObject) => {
   var transporter = nodemailer.createTransport({
     service: getEmailService(detailsObject.email),
     auth: {
@@ -53,6 +60,7 @@ exports.sendEmail = async (detailsObject) => {
       pass: detailsObject.password,
     },
   });
+
   const fileList = createFileList(detailsObject.paths);
   const destinationEmail =
     detailsObject.destination !== undefined && detailsObject.destination !== ""
@@ -64,13 +72,7 @@ exports.sendEmail = async (detailsObject) => {
     subject: `קוח מעודכן`,
     attachments: [...fileList],
   };
-
-  // transporter.sendMail(mailOptions, function (error, info) {
-  //   if (error) {
-  //     console.log(error);
-  //   } else {
-  //     console.log("Email has been sent");
-  //   }
-  //   prompt.get("Press enter to close");
-  // });
+  return transporter
+    .sendMail(mailOptions)
+    .then(() => console.log("Email Has Been Sent!"));
 };

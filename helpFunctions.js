@@ -32,7 +32,7 @@ const createFileList = (pathsString) => {
   pathList.forEach((path) => {
     const filenames = fs.readdirSync(path);
     filenames.forEach((file) => {
-      fileList.push({ path: `${path}\\${file}` });
+      fileList.push({ path: `${path}\\${file}`, filename: file });
     });
   });
   return fileList;

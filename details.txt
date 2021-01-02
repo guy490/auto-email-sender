@@ -1,4 +1,5 @@
-email: EMAIL - must
-password: PASSWORD - must 
-paths: FULL FOLDER PATHS THAT CONTAINS THE FILES YOU WANT TO SEND, SEPERATED BY COMMA - Example: C:\Users\Guy\Desktop\CV, C:\Users\Guy\Desktop\Projects, ...
-destination: EMAIL DESTINATION (who receive the email, by default it will send to the owner - email) - optional
+email: example@email.com
+password: example-password
+paths: C:\Users\User\Desktop\FOLDER1,C:\Users\User\Desktop\FOLDER2,C:\Users\User\Desktop\FOLDER3, ...
+emailsubject: Updated CV
+destination: destinationemail@email.com

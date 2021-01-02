@@ -69,7 +69,10 @@ exports.sendEmail = (detailsObject) => {
   var mailOptions = {
     from: detailsObject.email,
     to: destinationEmail,
-    subject: `קוח מעודכן`,
+    subject:
+      detailsObject.emailsubject !== undefined
+        ? detailsObject.emailsubject
+        : "",
     attachments: [...fileList],
   };
   return transporter

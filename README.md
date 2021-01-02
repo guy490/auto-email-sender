@@ -30,11 +30,11 @@ The file `details.txt` MUST be saved NEAR the execution file.
 If you are not interested in the code you can just download the execution files.
 BE AWARE THAT YOU MUST CREATE `details.txt` file just like the above template.
 
-MAC OS: [Download](https://ufile.io/a5gbn3ve)
+MAC OS: [Download](https://ufile.io/olvgac0y)
 
-LINUX OS:[Download](https://ufile.io/48ci250m)
+LINUX OS: [Download](https://ufile.io/eopm1lgk)
 
-WINDOWS OS:[Download](https://ufile.io/qhlfgtv0)
+WINDOWS OS: [Download](https://ufile.io/8wtrvxxj)
 
 - after the download you just need to create the `details.txt` file and click the execution file.
 

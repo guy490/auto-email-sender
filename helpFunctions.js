@@ -1,24 +1,29 @@
 const fs = require("fs");
+const readline = require("readline");
 const nodemailer = require("nodemailer");
 const prompt = require("prompt");
 
 /**
  * @param { string } filePath
  */
-exports.getDetailsObject = (filePath) => {
+exports.getDetailsObject = async (filePath) => {
   let details = {};
-  const data = fs.readFileSync(filePath, "UTF-8");
-  const lines = data.split(/\r?\n/);
+  const fileStream = fs.createReadStream(filePath);
+  const rl = readline.createInterface({
+    input: fileStream,
+    crlfDelay: Infinity,
+  });
 
-  lines.forEach((line) => {
+  for await (const line of rl) {
     if (line.length === 0) {
       return;
     }
-    const cleanLine = line.replace(/[ ]+/, "");
+    const cleanLine = line.replace(" ", "");
     const key = cleanLine.substr(0, line.indexOf(":"));
     const data = cleanLine.substr(line.indexOf(": ") + 1);
     details[key.replace(/[^\w]/, "")] = data;
-  });
+  }
+
   return details;
 };
 
@@ -27,12 +32,13 @@ exports.getDetailsObject = (filePath) => {
  */
 const createFileList = (pathsString) => {
   let fileList = [];
-  const cleanPaths = pathsString.replace(" ", "");
-  const pathList = cleanPaths.split(",");
+  console.log(pathsString);
+  const pathList = pathsString.split(",");
   pathList.forEach((path) => {
-    const filenames = fs.readdirSync(path);
+    const cleanPath = path.replace(" ", "");
+    const filenames = fs.readdirSync(cleanPath);
     filenames.forEach((file) => {
-      fileList.push({ path: `${path}\\${file}`, filename: file });
+      fileList.push({ path: `${cleanPath}\\${file}`, filename: file });
     });
   });
   return fileList;

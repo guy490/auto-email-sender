@@ -7,7 +7,7 @@ const path = "./details.txt";
 const main = async () => {
   let detailsObject = {};
   try {
-    detailsObject = getDetailsObject(path);
+    detailsObject = await getDetailsObject(path);
     await sendEmail(detailsObject);
   } catch (err) {
     console.error(err.message);

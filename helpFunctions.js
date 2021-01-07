@@ -32,7 +32,6 @@ exports.getDetailsObject = async (filePath) => {
  */
 const createFileList = (pathsString) => {
   let fileList = [];
-  console.log(pathsString);
   const pathList = pathsString.split(",");
   pathList.forEach((path) => {
     const cleanPath = path.replace(" ", "");

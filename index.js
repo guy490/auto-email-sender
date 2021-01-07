@@ -6,6 +6,7 @@ const path = "./details.txt";
 
 const main = async () => {
   let detailsObject = {};
+  console.log("Processing the Email...");
   try {
     detailsObject = await getDetailsObject(path);
     await sendEmail(detailsObject);
